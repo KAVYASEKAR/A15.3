@@ -1,0 +1,30 @@
+1)Explain the working of SQOOP in brief.
+Answer:
+"SQ"l to had"OOP" = SQOOP
+Sqoop imports and exports data between RDBMS and HDFS
+Sqoop Import:
+The import tool imports individual tables from RDBMS to HDFS. Each row in a table is treated as a record in HDFS. All records are stored as text data in text files or as binary data in Avro and Sequence files.
+Sqoop Export:
+The export tool exports a set of files from HDFS back to an RDBMS. The files given as input to Sqoop contain records, which are called as rows in table. Those are read and parsed into a set of records and delimited with user-specified delimiter.
+
+2)Import a table from Mysql to HBase table using Sqoop.
+Answer:
+(a) LOGIN INTO MYSQL SHELL
+mysql -u root -p
+(b) START USING EMPLOYEE DATABASE
+use employee;
+(c) CREATE AN EMPLOYEE TABLE
+create table employee(id int(11), name varchar(45), salary int(30));
+(d) INSERT VALUES INTO EMPLOYEE TABLE
+insert into employee values (1,'AAA',1000),(2,'BBB',2000);
+(e) GRANT PERMISSIONS
+grant all on *.* to 'root'@'localhost' with grant option;
+(f) ENTER HBASE SHELL
+hbase shell
+(g) CREATE TABLE
+create 'Hbaseemp','emp'
+(h) SQOOP IMPORT COMMAND
+sqoop import --connect jdbc:mysql://localhost/employee --username root --table employee --hbase-table Hbaseemp --column-family emp --hbase-row-key id -m 1
+(i) SHOW IMPORTED TABLE
+scan 'Hbaseemp'
+
